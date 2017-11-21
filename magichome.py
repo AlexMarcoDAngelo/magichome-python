@@ -37,11 +37,17 @@ class MagicHomeApi:
 
     def turn_on(self):
         """Turn a device on."""
-        self.send_bytes(0x71, 0x23, 0x0F, 0xA3) if self.device_type < 4 else self.send_bytes(0xCC, 0x23, 0x33)
+        if self.device_type[0] < 4:
+            self.send_bytes(0x71, 0x23, 0x0F, 0xA3)
+        else:
+            self.send_bytes(0xCC, 0x23, 0x33)
 
     def turn_off(self):
         """Turn a device off."""
-        self.send_bytes(0x71, 0x24, 0x0F, 0xA4) if self.device_type < 4 else self.send_bytes(0xCC, 0x24, 0x33)
+        if self.device_type[0] < 4:
+            self.send_bytes(0x71, 0x24, 0x0F, 0xA4)
+        else:
+            self.send_bytes(0xCC, 0x24, 0x33)
 
     def get_status(self):
         """Get the current status of a device."""
